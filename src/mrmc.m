@@ -12,7 +12,6 @@ function fit = mrmc(y, test, reader, id, options)
 
   fixed.reader = isa(reader, "FixedVariate");
   fixed.id = isa(id, "FixedVariate");
-  is_fixed = fixed.reader || fixed.id;
   assert(~(fixed.reader && fixed.id),...
          'Only one of reader or case may be fixed.')
   
@@ -24,9 +23,10 @@ function fit = mrmc(y, test, reader, id, options)
   design = get_design(mrmc_factors.test, mrmc_factors.reader, mrmc_factors.id);
   design.fixed = fixed;
   
-  is_nested = design.id_in_reader || design.id_in_test || design.reader_in_test;
-  assert(~is_nested, ['Support for nested designs is under development and '...
-                      'not currently available.'])
+  assert(~(design.id_in_reader && design.id_in_test), ...
+         'Unsupported design with id nested within both reader and test')
+  %assert(~design.reader_in_test,...
+  %       'Unsupported design with reader nested within test.')
 
   data = table();
   [mrmc_factors.group, readerids, testids] = findgroups(...
@@ -49,9 +49,14 @@ function fit = mrmc(y, test, reader, id, options)
   end
   V = cov_func(y, mrmc_factors.group, mrmc_factors.id, design.balanced3D);
 
+  nested = [0 0; 0 0];
+  if (design.reader_in_test)
+    nested(1, :) = [0 1];
+  end
   [~, tbl, anova.stats] = anovan(...
     data.y, {data.reader data.test},...
-    'model', 'interaction', 'varnames', {'reader', 'test'}, 'display', 'off'...
+    'model', 'full', 'nested', nested, 'varnames', {'reader', 'test'},...
+    'display', 'off'...
   );
   anova.tbl = cell2table(tbl(2:end, :), 'VariableNames', tbl(1, :));
 

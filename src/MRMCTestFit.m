@@ -82,7 +82,7 @@ classdef MRMCTestFit
       readers = obj.data.reader;
       same_reader = outerop(readers, readers, @eq);
       
-      comps.n = struct('reader', length(obj.anova.stats.n));
+      comps.n = struct('reader', sum(obj.anova.stats.n));
       comps.MS = meansq(obj);
       comps.var = mean(diag(obj.cov));
       comps.cov = [0; mean(obj.cov(~same_reader)); 0];

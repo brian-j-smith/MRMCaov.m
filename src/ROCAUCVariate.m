@@ -70,7 +70,7 @@ classdef ROCAUCVariate < PerformanceVariate
         inds1 = group1 == category(group1, 1) & inds2;
         truth = obj.truth(inds1);
         rating = obj.rating(inds1);
-        [fpr, tpr] = perfcurve(truth, rating, category(truth, 2));
+        [fpr, tpr] = perfcurve2(truth, rating, category(truth, 2));
         
         plot(fpr, tpr)
         subplot_title(group2ids, i)
@@ -85,7 +85,7 @@ classdef ROCAUCVariate < PerformanceVariate
           inds1 = group1 == category(group1, j) & inds2;
           truth = obj.truth(inds1);
           rating = obj.rating(inds1);
-          [fpr, tpr] = perfcurve(truth, rating, category(truth, 2));
+          [fpr, tpr] = perfcurve2(truth, rating, category(truth, 2));
           
           subplot_title(group2ids, i)
           plot(fpr, tpr)
@@ -108,6 +108,16 @@ classdef ROCAUCVariate < PerformanceVariate
     
   end
   
+end
+
+
+function [X, Y] = perfcurve2(labels, scores,posclass)
+  if length(unique(labels)) == 2
+    [X, Y] = perfcurve(labels, scores, posclass);
+  else
+    X = [0.5];
+    Y = [0.5];
+  end
 end
 
 
