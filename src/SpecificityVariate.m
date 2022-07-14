@@ -3,6 +3,34 @@ classdef SpecificityVariate < PerformanceVariate
   methods
     
     function obj = SpecificityVariate(truth, rating)
+
+% Description
+%
+% Designates specificity as the reader performance metric to be computed
+% from true case statuses and reader ratings for an MRMC analysis.
+%
+% Usage
+%
+%   obj = obj = SpecificityVariate(truth, rating)
+%
+% Input Arguments
+%
+%   truth: column array of true binary statuses.
+%
+%   rating: column array of binary ratings.
+%
+% Details
+%
+%   Specificity is calculated from the data as the proportion of negative
+%   cases who have negative ratings.  As such it will not be estimable for
+%   reader-test combinations that do not have any negative cases.
+%
+% Return Value
+%
+%   SpecificityVariate class object.
+%
+% See also: mrmc
+
       metric = @(truth, rating) mean(rating == category(rating, 1));
       obj@PerformanceVariate(categorical(truth), categorical(rating), metric)
       assert(length(categories(obj.truth)) == 2,...

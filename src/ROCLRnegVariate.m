@@ -3,6 +3,33 @@ classdef ROCLRnegVariate < PerformanceVariate
   methods
     
     function obj = ROCLRnegVariate(truth, rating)
+
+% Description
+%
+% Designates likelihood ratio of a negative rating (LR-) as the reader
+% performance metric to be computed from true case statuses and reader
+% ratings for an MRMC analysis.
+%
+% Usage
+%
+%   obj = ROCLRnegVariate(truth, rating)
+%
+% Input Arguments
+%
+%   truth: column array of true binary statuses.
+%
+%   rating: column array of numeric ratings.
+%
+% Details
+%
+%   LR- computed as (1 - sensitivity) / specificity.
+%
+% Return Value
+%
+%   ROCLRnegVariate class object.
+%
+% See also: mrmc
+
       metric = @(truth, rating) roc_lrneg(truth, rating);
       obj@PerformanceVariate(categorical(truth), categorical(rating), metric)
       assert(length(categories(obj.truth)) == 2,...

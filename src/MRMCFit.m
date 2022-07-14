@@ -24,6 +24,19 @@ classdef MRMCFit
     
     
     function disp(x)
+
+% DISP Display fitted values from an MRMC analysis.
+%
+% Usage
+%
+%   DISP(x)
+%
+% Arguments
+%
+%   x: MRMCFit object as returned by mrmc().
+%
+% See also: mrmc
+
       fprintf('%s ANOVA data:\n\n', class(x.y))
       disp(x.data)
       fprintf('ANOVA Table:\n\n')
@@ -40,18 +53,39 @@ classdef MRMCFit
     end
     
     
-    function x = meansq(obj)
-      MS = obj.anova.tbl{:, 'Mean Sq.'};
-      x = struct('test', MS(2), 'reader', MS(1), 'interaction', MS(3));
-    end
-    
-    
     function plot(obj)
+
+% PLOT Plot ROC curves from an MRMC analysis.
+%
+% Usage
+%
+%   PLOT(x)
+%
+% Arguments
+%
+%   x: MRMCFit object as returned by a call to mrmc() with a performance
+%     metric computed from an ROC curve.
+%
+% See also: mrmc
+
       plot(obj.y, obj.factors(:, {'test', 'reader'}))
     end
     
     
     function sz = size(obj)
+
+% SIZE Get the number of readers and tests from an MRMC analysis.
+%
+% Usage
+%
+%   SIZE(x)
+%
+% Arguments
+%
+%   x: MRMCFit object as returned by mrmc().
+%
+% See also: mrmc
+
       varnames = {'reader' 'test'};
       sz = varfun(@(x) length(categories(x)), obj.data(:, varnames));
       sz.Properties.VariableNames = varnames;
@@ -59,7 +93,29 @@ classdef MRMCFit
     
     
     function res = summary(obj, options)
-      
+
+% SUMMARY Summarize statistical results of an MRMC analysis.
+% 
+% Usage
+%
+%   res = SUMMARY(obj, options)
+%
+% Input Arguments
+%
+%   obj: MRMCFit object as returned by mrmc().
+%
+% Name-Value Options
+%
+%   alpha: numerical value in the range of 0 to 1 for the significance
+%     level of 100 x (1 - alpha)% confidence intervals [default: 0.05].
+%
+% Return Value
+%
+%   MRMCSummary class object of statistical results from a multi-reader,
+%   multi-case analysis.
+%
+% See also: mrmc
+
       arguments
         obj
         options.alpha double {...
@@ -102,6 +158,15 @@ classdef MRMCFit
                         test_means, test_diffs, reader_test_diffs,...
                         reader_means);
     end
+   
+  end
+
+  methods (Hidden)
+    
+    function x = meansq(obj)
+      MS = obj.anova.tbl{:, 'Mean Sq.'};
+      x = struct('test', MS(2), 'reader', MS(1), 'interaction', MS(3));
+    end
 
     
     function comps = vcov_comps(obj, reader)
@@ -140,7 +205,7 @@ classdef MRMCFit
         comps.cov(3) = f(~same_test, ~same_reader);
       end
     end
-   
+
   end
   
 end

@@ -12,6 +12,7 @@ classdef ROCAUCVariate < PerformanceVariate
   methods
     
     function obj = ROCAUCVariate(truth, rating, options)
+
       arguments
         truth
         rating
@@ -20,6 +21,43 @@ classdef ROCAUCVariate < PerformanceVariate
         options.max = 1
         options.normalize = false
       end
+
+% Description
+%
+% Designates area under the ROC curve as the reader performance metric to
+% be computed from true case statuses and reader ratings for an MRMC
+% analysis.
+%
+% Usage
+%
+%   obj = ROCAUCVariate(truth, rating, options)
+%
+% Input Arguments
+%
+%   truth: column array of true binary statuses.
+%
+%   rating: column array of numeric ratings.
+%
+% Name-Value Options
+%
+%   partial: character vector specifying whether to compute area under the
+%     entire curve (''), over a range of sensitivities ('sensitivity'), or
+%     over a ranges of specificities ('specificity') [default: ''].
+%
+%   min: numeric value from 0 to 1 for the minimum sensitivity or
+%     specificity if computing partial area [default: 0].
+%
+%   max: numeric value from 0 to 1 for the maximum sensitivity or
+%     specificity if computing partial area [default: 1].
+%
+%   normalize: logical indicating whether to divide partial area by
+%     max - min [default: false].
+%
+% Return Value
+%
+%   ROCAUCVariate class object.
+%
+% See also: mrmc
       metric = @(truth, rating) roc_auc(...
         truth, rating, 'partial', options.partial, 'min', options.min,...
         'max', options.max, 'normalize', options.normalize);

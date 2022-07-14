@@ -34,6 +34,7 @@ classdef PerformanceVariate
     function value = trunc(~, x)
       value = x;
     end
+    
   end
   
 end

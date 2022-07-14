@@ -1,5 +1,57 @@
 function fit = mrmc(y, test, reader, id, options)
 
+% Multi-Reader Multi-Case Statistical Analysis
+% 
+% Description
+%
+%   Computes performance metrics and covariances needed to perform a
+%   multi-reader multi-case statistical analyis.
+%
+% Usage
+%
+%   fit = mrmc(y, test, reader, id, options)
+%
+% Input Arguments
+%
+%   y: PerformanceVariate object defining true case statuses, corresponding
+%     reader ratings, and a reader performance metric to compute on them.
+%
+%   test, reader, id: column arrays of grouping variables that identify the
+%     test modality, reader, and case for the observations in y.  Each of
+%     the variables can be either categorical, numerical, character, or
+%     string arrays and must have the same number of observations as y.
+%
+% Name-Value Options
+%
+%   cov: character vector specifying the method of estimating within-reader
+%     rating covariances as 'DeLong', 'jackknife', or 'unbiased' [default:
+%     'jackknife']
+%
+% Details
+%
+%   Readers and cases are treated as random factors by default. Either one
+%   may be designated as fixed in calls to mrmc with the syntax
+%   FixedVariate(<variable>), where <variable> is the reader or case id
+%   variable.
+%
+% Return Value
+%
+%   MRMCFit class object of data that can be used to display and
+%   statistically compare the reader performance metrics.
+%
+% Example
+%
+%   load VanDyke
+%   y = ROCAUCVariate(VanDyke.truth, VanDyke.rating);
+%   fit = mrmc(y, VanDyke.treatment, VanDyke.reader, VanDyke.case,...
+%              'cov', 'unbiased');
+%   plot(fit)
+%   disp(fit)
+%   summary(fit)
+%
+% See also: ROCAUCVariate, ROCEUVariate, ROCLRnegVariate, ROCLRposVariate,
+% SensitivityVariate, SpecificityVariate, FixedVariate, MRMCFit
+
   arguments
     y PerformanceVariate
     test (:, 1)

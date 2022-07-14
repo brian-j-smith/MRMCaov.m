@@ -1,11 +1,11 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="883073860" file="C:\Users\bjsmith\OneDrive - University of Iowa\Home\Software\MATLAB\MRMCaov\MRMCaov.prj" location="C:\Users\bjsmith\OneDrive - University of Iowa\Home\Software\MATLAB\MRMCaov" name="MRMCaov" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="883073860" file="\\client\c$\Users\bjsmith\OneDrive - University of Iowa\Home\Software\MATLAB\MRMCaov\MRMCaov.prj" location="\\client\c$\Users\bjsmith\OneDrive - University of Iowa\Home\Software\MATLAB\MRMCaov" name="MRMCaov" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>MRMCaov</param.appname>
     <param.authnamewatermark>Brian J Smith</param.authnamewatermark>
     <param.email>brian-j-smith@uiowa.edu</param.email>
     <param.company>University of Iowa</param.company>
     <param.summary>Multi-Reader Multi-Case Analysis of Variance</param.summary>
-    <param.description />
+    <param.description>Statistical tools for estimating and comparing the performances of diagnostic tests in multi-reader multi-case studies where true case statuses (or ground truths) are known and one or more readers provide test ratings for multiple cases.  Reader performance metrics are provided for area under and expected utility of ROC curves, likelihood ratio of positive or negative tests, and sensitivity and specificity.  Statistical comparisons of diagnostic tests are based on the ANOVA model of Obuchowski-Rockette and the unified framework of Hillis. The ANOVA can be conducted with data from a full factorial, nested, or partially paired study design; with random or fixed readers or cases; and covariances estimated with the DeLong method, jackknifing, or an unbiased method.</param.description>
     <param.screenshot />
     <param.version>0.2</param.version>
     <param.output>${PROJECT_ROOT}\MRMCaov.mltbx</param.output>
@@ -42,7 +42,7 @@ tmp
     <param.apps />
     <param.registered.apps />
     <param.docs />
-    <param.getting.started.guide />
+    <param.getting.started.guide>${PROJECT_ROOT}\doc\GettingStarted.mlx</param.getting.started.guide>
     <param.matlabpath.excludes />
     <param.javaclasspath.excludes />
     <param.exported.on.package>false</param.exported.on.package>
@@ -63,7 +63,6 @@ tmp
     <param.additional.sw.mac.url />
     <param.additional.sw.linux.url />
     <unset>
-      <param.description />
       <param.screenshot />
       <param.output />
       <param.products.name />
@@ -76,7 +75,6 @@ tmp
       <param.apps />
       <param.registered.apps />
       <param.docs />
-      <param.getting.started.guide />
       <param.matlabpath.excludes />
       <param.javaclasspath.excludes />
       <param.exported.on.package />
@@ -100,7 +98,9 @@ tmp
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\data</file>
+      <file>${PROJECT_ROOT}\doc</file>
       <file>${PROJECT_ROOT}\img</file>
+      <file>${PROJECT_ROOT}\man</file>
       <file>${PROJECT_ROOT}\README.md</file>
       <file>${PROJECT_ROOT}\src</file>
     </fileset.rootfiles>
@@ -108,11 +108,11 @@ tmp
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="MRMCaov.mltbx" optional="false">C:\Users\bjsmith\OneDrive - University of Iowa\Home\Software\MATLAB\MRMCaov\MRMCaov.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="MRMCaov.mltbx" optional="false">\\client\c$\Users\bjsmith\OneDrive - University of Iowa\Home\Software\MATLAB\MRMCaov\MRMCaov.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2021a</root>
+      <root>C:\Program Files\MATLAB\R2021b</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
         <toolbox name="embeddedcoder" />
